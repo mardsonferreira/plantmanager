@@ -8,9 +8,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Button } from '../components/Button';
 
@@ -39,8 +41,23 @@ export function UserIdentification () {
   }
 
 
-  function handleSubmit() {
-    navigation.navigate('Confirmation');
+  async function handleSubmit() {
+    if (!name) {
+      return Alert.alert("Please, inform your name to proceed.");
+    }
+
+    try {
+      await AsyncStorage.setItem('@plantmanager:user', name);
+      navigation.navigate('Confirmation', {
+        title: 'Ready',
+        subTitle: "Now let's start taking care of your little plants very carefully.",
+        buttonTitle: 'Start',
+        icon: 'smile',
+        nextScreen: 'PlantSelect'
+      });
+    } catch {
+      Alert.alert("Could not save your name");
+    }
   }
 
   return (

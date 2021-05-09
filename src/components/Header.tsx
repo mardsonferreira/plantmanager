@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import {
   View, 
   Text, 
@@ -6,6 +6,7 @@ import {
   Image
 } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import profile from '../assets/perfil.jpg';
@@ -15,11 +16,22 @@ import fonts from '../styles/fonts';
 
 
 export function Header () {
+  const [userName, setUserName] = useState<string>();
+
+  useEffect(() => {
+    async function loadStorageData() {
+      const user = await AsyncStorage.getItem('@plantmanager:user');
+      setUserName(user || '');
+    }
+
+    loadStorageData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.greeting}>Hello,</Text>
-        <Text style={styles.username}>Mardson</Text>
+        <Text style={styles.username}>{userName}</Text>
       </View>
 
       <Image source={profile} style={styles.image}/>

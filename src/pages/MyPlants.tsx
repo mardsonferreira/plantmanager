@@ -3,23 +3,50 @@ import {
   StyleSheet,
   View,
   Text,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-
-import { Header } from '../components/Header';
-import waterdrop from '../assets/waterdrop.png';
-import { PlantProps, loadPlants } from '../libs/storage';
 import { formatDistance } from 'date-fns';
+
+import { PlantProps, loadPlants, removePlant } from '../libs/storage';
+import { Header } from '../components/Header';
+import { PlantCardSecondary } from '../components/PlantCardSecondary';
+import { Load } from '../components/Load';
+
+import waterdrop from '../assets/waterdrop.png';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import { PlantCardSecondary } from '../components/PlantCardSecondary';
 
 export function MyPlants () {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [nextWatered, setNextWatered] = useState<string>();
+
+  function handleRemove(plant: PlantProps) {
+    Alert.alert('Delete', `Would you like to delete ${plant.name}?`, [
+      {
+        text: 'No 🙏',
+        style: 'cancel',
+      }, 
+      {
+        text: 'Yes 😢',
+        onPress: async () => {
+          try {
+            await removePlant(plant.id);
+            
+            setMyPlants((oldData) =>
+              oldData.filter((item) => item.id !== plant.id)
+            );
+
+          } catch (error) {
+            Alert.alert('Could not remove');
+          }
+        }
+      }
+    ])
+  }
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -41,6 +68,9 @@ export function MyPlants () {
 
     loadStoragedData();
   }, [])
+
+  if (loading) 
+    return <Load />
 
   return (
     <View style={styles.container}>
@@ -66,7 +96,9 @@ export function MyPlants () {
           data={myPlants}
           keyExtractor={(item) => String(item.id)}
           renderItem={({item}) => (
-            <PlantCardSecondary data={item} />
+            <PlantCardSecondary
+            data={item}
+            handleRemove={() => {handleRemove(item)}} />
           )}
           showsVerticalScrollIndicator={false}
         />
@@ -81,14 +113,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 30,
-    paddingTop: 50,
+    paddingTop: 10,
     backgroundColor: colors.background,
   },
   spotilight: {
     backgroundColor: colors.blue_light,
     paddingHorizontal: 20,
     borderRadius: 20,
-    height: 110,
+    height: 100,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

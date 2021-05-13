@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Feather} from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
@@ -19,8 +20,14 @@ import fonts from '../styles/fonts';
 export function Welcome() {
   const navigation = useNavigation();
 
-  function handleStart() {
-    navigation.navigate('UserIdentification');
+  async function handleStart() {
+    const username = await AsyncStorage.getItem('@plantmanager:user');
+
+    if (username) {
+      navigation.navigate('PlantSelect');
+    } else {
+      navigation.navigate('UserIdentification');
+    }
   }
 
   return (

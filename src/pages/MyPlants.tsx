@@ -52,14 +52,20 @@ export function MyPlants () {
     async function loadStoragedData() {
       const plantsStoraged = await loadPlants();
       
-      const nextTime = formatDistance(
-        new Date(plantsStoraged[0].dateTimeNotification).getTime(),
-        new Date().getTime()
-      );
+      if (plantsStoraged && plantsStoraged.length) {
+        const nextTime = formatDistance(
+          new Date(plantsStoraged[0].dateTimeNotification).getTime(),
+          new Date().getTime()
+        );
 
-      setNextWatered(
-        `Do not forget to water ${plantsStoraged[0].name} at ${nextTime}.`
-      );
+        setNextWatered(
+          `Do not forget to water ${plantsStoraged[0].name} at ${nextTime}.`
+        );
+      } else {
+        setNextWatered(
+          'No planst to water.'
+        );
+      }
 
       setMyPlants(plantsStoraged);
 

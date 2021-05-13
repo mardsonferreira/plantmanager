@@ -7,6 +7,7 @@ Next Level Week 5 (https://nextlevelweek.com). </p>
 <ul> 
   <li> <a href="https://www.typescriptlang.org/"> TypeScript </a> </li>
   <li> <a href="https://reactnavigation.org/"> React Native</a> </li>
+  <li> <a href="https://expo.io/">Expo</a> </li>
 </ul>
 
 <h2>:pencil: How to use</h2>

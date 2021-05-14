@@ -1,5 +1,13 @@
+<p align="center">
+  <img src="https://github.com/mardsonferreira/plantmanager/blob/main/.github/logo.svg" />
+</p>
+
 <p align="left">The Plant Manager is an app to help to remember to water your plants. It was developed during the 
 Next Level Week 5 (https://nextlevelweek.com). </p>
+
+<p align="center">
+  <img src="https://github.com/mardsonferreira/plantmanager/blob/main/.github/preview.png" />
+</p>
 
 <h2>:hammer: Technologies</h2>
 

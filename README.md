@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/mardsonferreira/plantmanager/blob/main/.github/logo.png" />
+  <img src="https://github.com/mardsonferreira/plantmanager/blob/main/.github/logo.svg" />
 </p>
 
 <p align="left">The Plant Manager is an app to help to remember to water your plants. It was developed during the 

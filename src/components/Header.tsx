@@ -14,8 +14,12 @@ import profile from '../assets/perfil.jpg';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
+interface HeadersProps {
+  title?: string;
+  sub_title?: string;
+}
 
-export function Header () {
+export function Header ({ title, sub_title }: HeadersProps) {
   const [userName, setUserName] = useState<string>();
 
   useEffect(() => {
@@ -30,8 +34,8 @@ export function Header () {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.greeting}>Hello,</Text>
-        <Text style={styles.username}>{userName}</Text>
+        <Text style={styles.greeting}>{title ? title : 'Hello,'}</Text>
+        <Text style={styles.username}>{sub_title ? sub_title : userName}</Text>
       </View>
 
       <Image source={profile} style={styles.image}/>

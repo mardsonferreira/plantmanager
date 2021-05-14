@@ -81,7 +81,7 @@ export function MyPlants () {
   return (
     <View style={styles.container}>
      
-      <Header />
+      <Header title="My" sub_title="Plants" />
 
       <View style={styles.spotilight}>
         <Image 
